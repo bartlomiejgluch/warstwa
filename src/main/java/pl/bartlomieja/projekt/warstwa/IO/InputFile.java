@@ -8,24 +8,20 @@ import java.util.ArrayList;
 public class InputFile {
 
 
-
-
-
-
     public void readFile(ArrayList<RowData> rowData, File file2) {
 
         try {
 
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file2));
-            String row = null;
-            int j = 0;
+            String row;
+            int countSkip = 0;
             while ((row = bufferedReader.readLine()) != null) {
 
-                if (j >= 2) {
+                if (countSkip >= 2) {
                     addRow(row, rowData);
                 }
-                j++;
+                countSkip++;
             }
 
         } catch (Exception ex) {
@@ -35,11 +31,10 @@ public class InputFile {
 
     }
 
-    void addRow(String rowToAnalize, ArrayList<RowData> rowData) {
+    private void addRow(String rowToAnalize, ArrayList<RowData> rowData) {
 
 
-        String[] elements = rowToAnalize.split("  ");
-
+        String[] elements = rowToAnalize.split(" {2}");
 
 
         RowData nextRow = new RowData(elements[0], elements[1], elements[2], elements[3], elements[4], elements[5], elements[6],

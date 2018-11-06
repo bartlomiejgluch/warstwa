@@ -3,22 +3,23 @@ package pl.bartlomieja.projekt.warstwa.methods;
 public class AverageObject {
 
 
-    double averageCzasNew;
-    double averageUx1New;
-    double averageUy1New;
-    double averageUz1New;
-    double averageUx2New;
-    double averageUy2New;
-    double averageUz2New;
-    double averageUx3New;
-    double averageUy3New;
-    double averageUz3New;
-    double averageUx4New;
-    double averageUy4New;
-    double averageUz4New;
+    private double averageCzasNew;
+    private double averageUx1New;
+    private double averageUy1New;
+    private double averageUz1New;
+    private double averageUx2New;
+    private double averageUy2New;
+    private double averageUz2New;
+    private double averageUx3New;
+    private double averageUy3New;
+    private double averageUz3New;
+    private double averageUx4New;
+    private double averageUy4New;
+    private double averageUz4New;
+    private int amountOfData;
 
 
-    public AverageObject(double kAverageCzas,
+    protected AverageObject(double kAverageCzas,
                          double kAverageUx1,
                          double kAverageUy1,
                          double kAverageUz1,
@@ -30,7 +31,8 @@ public class AverageObject {
                          double kAverageUz3,
                          double kAverageUx4,
                          double kAverageUy4,
-                         double kAverageUz4) {
+                         double kAverageUz4,
+                         int kamountOfData) {
 
 
         averageCzasNew = kAverageCzas;
@@ -46,7 +48,10 @@ public class AverageObject {
         averageUz2New = kAverageUz2;
         averageUz3New = kAverageUz3;
         averageUz4New = kAverageUz4;
+        amountOfData = kamountOfData;
+
     }
+
 
     public double getAverageCzasNew() {
         return averageCzasNew;
@@ -98,5 +103,9 @@ public class AverageObject {
 
     public double getAverageUz4New() {
         return averageUz4New;
+    }
+
+    public double getAmountOfData() {
+        return amountOfData;
     }
 }

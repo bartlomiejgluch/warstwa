@@ -3,34 +3,34 @@ package pl.bartlomieja.projekt.warstwa.IO;
 public class RowData {
 
 
-    String czas;
-    String Ux1;
-    String Uy1;
-    String Uz1;
-    String Ux2;
-    String Uy2;
-    String Uz2;
-    String Ux3;
-    String Uy3;
-    String Uz3;
-    String Ux4;
-    String Uy4;
-    String Uz4;
+    private String czas;
+    private String Ux1;
+    private String Uy1;
+    private String Uz1;
+    private String Ux2;
+    private String Uy2;
+    private String Uz2;
+    private String Ux3;
+    private String Uy3;
+    private String Uz3;
+    private String Ux4;
+    private String Uy4;
+    private String Uz4;
 
 
-    public RowData(String kczas,
-                   String kUx1,
-                   String kUy1,
-                   String kUz1,
-                   String kUx2,
-                   String kUy2,
-                   String kUz2,
-                   String kUx3,
-                   String kUy3,
-                   String kUz3,
-                   String kUx4,
-                   String kUy4,
-                   String kUz4) {
+    RowData(String kczas,
+            String kUx1,
+            String kUy1,
+            String kUz1,
+            String kUx2,
+            String kUy2,
+            String kUz2,
+            String kUx3,
+            String kUy3,
+            String kUz3,
+            String kUx4,
+            String kUy4,
+            String kUz4) {
 
 
         czas = kczas;
@@ -47,7 +47,6 @@ public class RowData {
         Uy4 = kUy4;
         Uz4 = kUz4;
     }
-
 
 
     public String getCzas() {
@@ -101,7 +100,6 @@ public class RowData {
     public String getUz4() {
         return Uz4;
     }
-
 
 
 }

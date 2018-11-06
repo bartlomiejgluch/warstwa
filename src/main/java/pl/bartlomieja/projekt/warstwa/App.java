@@ -1,9 +1,13 @@
 package pl.bartlomieja.projekt.warstwa;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pl.bartlomieja.projekt.warstwa.IO.InputFile;
@@ -21,27 +25,27 @@ import java.util.List;
  */
 public class App extends Application {
 
-    public ArrayList<Object> allRowDataObject = new ArrayList<>();
-    ArrayList<AverageObject> averageObjects = new ArrayList<>();
-    InputFile inputFile = new InputFile();
-    Average average = new Average();
+    private ArrayList<Object> allRowDataObject = new ArrayList<>();
+    private ArrayList<AverageObject> averageObjects = new ArrayList<>();
+    private InputFile inputFile = new InputFile();
+    private Average average = new Average();
 
 
     Button button;
-    Stage window;
-    BorderPane layout;
+   private Stage window;
+   private BorderPane layout;
 
-    int x=2;
+    private  TableView<AverageObject> tableAvarageObjects;
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         launch(args);
     }
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         final FileChooser fileChooser = new FileChooser();
 
@@ -61,18 +65,17 @@ public class App extends Application {
                     fileChooser.showOpenMultipleDialog(primaryStage);
             if (list != null) {
                 for (File file2 : list) {
-                    ArrayList<RowData> rowData = new ArrayList<RowData>();
+                    ArrayList<RowData> rowData = new ArrayList<>();
                     inputFile.readFile(rowData, file2);
                     allRowDataObject.add(rowData);
                 }
 
-                average.makeAverage(allRowDataObject, averageObjects);
             }
 
         });
 
         MenuItem exitButton = new MenuItem("Exit");
-        exitButton.setOnAction(event -> System.exit(0) );
+        exitButton.setOnAction(event -> System.exit(0));
 
         fileMenu.getItems().add(openFile);
         fileMenu.getItems().add(new SeparatorMenuItem());
@@ -89,21 +92,95 @@ public class App extends Application {
         button1.setOnAction(event -> {
             average.makeAverage(allRowDataObject, averageObjects);
 
-            for (int i = 0; i < averageObjects.size(); i++) {
+            for (AverageObject averageObject : averageObjects) {
 
-                System.out.println(averageObjects.get(i).getAverageUz2New());
+
+                tableAvarageObjects.getItems().add(averageObject);
             }
+
 
         });
 
         layout.setLeft(button1);
 
+        TableColumn<AverageObject, Integer> amountOfDataColumn = new TableColumn<>("amount of data");
+        amountOfDataColumn.setMinWidth(100);
+        amountOfDataColumn.setCellValueFactory(new PropertyValueFactory<>("amountOfData"));
 
-        Scene scene = new Scene(layout, 640, 480);
+        TableColumn<AverageObject, Double> czasColumn = new TableColumn<>("average time");
+        czasColumn.setMinWidth(100);
+        czasColumn.setCellValueFactory(new PropertyValueFactory<>("averageCzasNew"));
+
+        TableColumn<AverageObject, Double> averageUx1Column = new TableColumn<>("average Ux1");
+        averageUx1Column.setMinWidth(100);
+        averageUx1Column.setCellValueFactory(new PropertyValueFactory<>("averageUx1New"));
+
+        TableColumn<AverageObject, Double> averageUy1Column = new TableColumn<>("average Uy1");
+        averageUy1Column.setMinWidth(100);
+        averageUy1Column.setCellValueFactory(new PropertyValueFactory<>("averageUy1New"));
+
+        TableColumn<AverageObject, Double> averageUz1Column = new TableColumn<>("average Uz1");
+        averageUz1Column.setMinWidth(100);
+        averageUz1Column.setCellValueFactory(new PropertyValueFactory<>("averageUz1New"));
+
+        TableColumn<AverageObject, Double> averageUx2Column = new TableColumn<>("average Ux2");
+        averageUx2Column.setMinWidth(100);
+        averageUx2Column.setCellValueFactory(new PropertyValueFactory<>("averageUx2New"));
+
+        TableColumn<AverageObject, Double> averageUy2Column = new TableColumn<>("average Uy2");
+        averageUy2Column.setMinWidth(100);
+        averageUy2Column.setCellValueFactory(new PropertyValueFactory<>("averageUy2New"));
+
+        TableColumn<AverageObject, Double> averageUz2Column = new TableColumn<>("average Uz2");
+        averageUz2Column.setMinWidth(100);
+        averageUz2Column.setCellValueFactory(new PropertyValueFactory<>("averageUz2New"));
+
+        TableColumn<AverageObject, Double> averageUx3Column = new TableColumn<>("average Ux3");
+        averageUx3Column.setMinWidth(100);
+        averageUx3Column.setCellValueFactory(new PropertyValueFactory<>("averageUx3New"));
+
+        TableColumn<AverageObject, Double> averageUy3Column = new TableColumn<>("average Uy3");
+        averageUy3Column.setMinWidth(100);
+        averageUy3Column.setCellValueFactory(new PropertyValueFactory<>("averageUy3New"));
+
+        TableColumn<AverageObject, Double> averageUz3Column = new TableColumn<>("average Uz3");
+        averageUz3Column.setMinWidth(100);
+        averageUz3Column.setCellValueFactory(new PropertyValueFactory<>("averageUz3New"));
+
+        TableColumn<AverageObject, Double> averageUx4Column = new TableColumn<>("average Ux4");
+        averageUx4Column.setMinWidth(100);
+        averageUx4Column.setCellValueFactory(new PropertyValueFactory<>("averageUx4New"));
+
+        TableColumn<AverageObject, Double> averageUy4Column = new TableColumn<>("average Uy4");
+        averageUy4Column.setMinWidth(100);
+        averageUy4Column.setCellValueFactory(new PropertyValueFactory<>("averageUy4New"));
+
+        TableColumn<AverageObject, Double> averageUz4Column = new TableColumn<>("average Uz4");
+        averageUz4Column.setMinWidth(100);
+        averageUz4Column.setCellValueFactory(new PropertyValueFactory<>("averageUz4New"));
+
+        tableAvarageObjects = new TableView<>();
+        tableAvarageObjects.setItems(getAverageObject());
+        tableAvarageObjects.getColumns().addAll(amountOfDataColumn, czasColumn, averageUx1Column, averageUy1Column, averageUz1Column,
+                averageUx2Column, averageUy2Column, averageUz2Column, averageUx3Column, averageUy3Column, averageUz3Column,
+                averageUx4Column, averageUy4Column, averageUz4Column);
+
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(layout, tableAvarageObjects);
+
+
+        Scene scene = new Scene(vBox);
         window.setScene(scene);
         window.show();
 
 
+    }
+
+
+    private ObservableList<AverageObject> getAverageObject() {
+
+        return FXCollections.observableArrayList();
     }
 
 
