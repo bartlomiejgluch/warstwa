@@ -3,7 +3,12 @@ package pl.bartlomieja.projekt.warstwa;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -29,10 +34,10 @@ public class App extends Application {
 
 
     Button button;
-   private Stage window;
-   private BorderPane layout;
+    private Stage window;
+    private BorderPane layout;
 
-    private  TableView<AverageObject> tableAvarageObjects;
+    private TableView<AverageObject> tableAverageObjects;
 
 
     public static void main(String[] args) {
@@ -45,6 +50,18 @@ public class App extends Application {
     public void start(Stage primaryStage) {
 
         final FileChooser fileChooser = new FileChooser();
+
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Measurement number");
+        final LineChart<Number, Number> lineChart =
+                new LineChart<Number, Number>(xAxis, yAxis);
+
+        lineChart.setTitle("Average values");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("series 1 ");
+
 
         window = primaryStage;
         window.setTitle("Program Bartłomieja - Warstwa");
@@ -92,13 +109,20 @@ public class App extends Application {
             for (AverageObject averageObject : averageObjects) {
 
 
-                tableAvarageObjects.getItems().add(averageObject);
+                tableAverageObjects.getItems().add(averageObject);
+
+                series1.getData().add(new XYChart.Data(averageObject.getOrdinalNumber(), averageObject.getAverageUy1New()));
+
             }
 
+            lineChart.getData().addAll(series1);
 
         });
 
-        layout.setLeft(button1);
+
+        TableColumn<AverageObject, Integer> ordinalNumberColumn = new TableColumn<>("Ordinal number");
+        ordinalNumberColumn.setMinWidth(60);
+        ordinalNumberColumn.setCellValueFactory(new PropertyValueFactory<>("ordinalNumber"));
 
         TableColumn<AverageObject, Integer> amountOfDataColumn = new TableColumn<>("amount of data");
         amountOfDataColumn.setMinWidth(100);
@@ -156,16 +180,25 @@ public class App extends Application {
         averageUz4Column.setMinWidth(80);
         averageUz4Column.setCellValueFactory(new PropertyValueFactory<>("averageUz4New"));
 
-        tableAvarageObjects = new TableView<>();
-        tableAvarageObjects.setItems(getAverageObject());
-        tableAvarageObjects.getColumns().addAll(amountOfDataColumn, czasColumn, averageUx1Column, averageUy1Column, averageUz1Column,
+        tableAverageObjects = new TableView<>();
+        tableAverageObjects.setItems(getAverageObject());
+        tableAverageObjects.getColumns().addAll(ordinalNumberColumn, amountOfDataColumn, czasColumn, averageUx1Column, averageUy1Column, averageUz1Column,
                 averageUx2Column, averageUy2Column, averageUz2Column, averageUx3Column, averageUy3Column, averageUz3Column,
                 averageUx4Column, averageUy4Column, averageUz4Column);
 
 
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(layout, tableAvarageObjects);
 
+
+
+
+        VBox vBox = new VBox();
+        vBox.setPrefWidth(800);
+        vBox.setPrefHeight(600);
+
+
+
+        vBox.getChildren().addAll( layout, button1, tableAverageObjects, lineChart);
+vBox.setMargin(button1, new Insets(10,10,10,10));
 
         Scene scene = new Scene(vBox);
         window.setScene(scene);

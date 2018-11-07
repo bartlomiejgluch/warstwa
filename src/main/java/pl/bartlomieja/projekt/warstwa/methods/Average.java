@@ -94,12 +94,11 @@ public class Average {
         double averageComponentUz4 = 0;
 
 
-        for (Object anAllRowDataObject : allRowDataObject) {
+        for (int i = 0; i < allRowDataObject.size(); i++) {
+            Object anAllRowDataObject = allRowDataObject.get(i);
 
             ArrayList<RowData> firstElement = (ArrayList<RowData>) anAllRowDataObject;
             for (RowData aFirstElement : firstElement) {
-
-
                 averageComponentCzas = averageComponentCzas + Float.parseFloat(aFirstElement.getCzas());
                 averageComponentUx1 = averageComponentUx1 + Float.parseFloat(aFirstElement.getUx1());
                 averageComponentUx2 = averageComponentUx2 + Float.parseFloat(aFirstElement.getUx2());
@@ -138,7 +137,8 @@ public class Average {
             averageUz4 = averageComponentUz4 / sizeRowDataVariable;
 
             AverageObject nextAverageObject = new AverageObject(averageCzas, averageUx1, averageUx2, averageUx3, averageUx4,
-                    averageUy1, averageUy2, averageUy3, averageUy4, averageUz1, averageUz2, averageUz3, averageUz4, sizeRowDataVariable);
+                    averageUy1, averageUy2, averageUy3, averageUy4, averageUz1, averageUz2, averageUz3, averageUz4,
+                    sizeRowDataVariable, i);
             averageObjects.add(nextAverageObject);
 
 

@@ -17,22 +17,24 @@ public class AverageObject {
     private double averageUy4New;
     private double averageUz4New;
     private int amountOfData;
+    private int ordinalNumber;
 
 
     protected AverageObject(double kAverageCzas,
-                         double kAverageUx1,
-                         double kAverageUy1,
-                         double kAverageUz1,
-                         double kAverageUx2,
-                         double kAverageUy2,
-                         double kAverageUz2,
-                         double kAverageUx3,
-                         double kAverageUy3,
-                         double kAverageUz3,
-                         double kAverageUx4,
-                         double kAverageUy4,
-                         double kAverageUz4,
-                         int kamountOfData) {
+                            double kAverageUx1,
+                            double kAverageUy1,
+                            double kAverageUz1,
+                            double kAverageUx2,
+                            double kAverageUy2,
+                            double kAverageUz2,
+                            double kAverageUx3,
+                            double kAverageUy3,
+                            double kAverageUz3,
+                            double kAverageUx4,
+                            double kAverageUy4,
+                            double kAverageUz4,
+                            int kamountOfData,
+                            int kOrdinalNumber) {
 
 
         averageCzasNew = kAverageCzas;
@@ -49,7 +51,7 @@ public class AverageObject {
         averageUz3New = kAverageUz3;
         averageUz4New = kAverageUz4;
         amountOfData = kamountOfData;
-
+        ordinalNumber = kOrdinalNumber;
     }
 
 
@@ -107,5 +109,9 @@ public class AverageObject {
 
     public double getAmountOfData() {
         return amountOfData;
+    }
+
+    public int getOrdinalNumber() {
+        return ordinalNumber;
     }
 }
