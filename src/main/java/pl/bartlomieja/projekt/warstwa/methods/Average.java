@@ -1,6 +1,6 @@
 package pl.bartlomieja.projekt.warstwa.methods;
 
-import pl.bartlomieja.projekt.warstwa.IO.RowData;
+import pl.bartlomieja.projekt.warstwa.IO.RowDataObject;
 
 import java.util.ArrayList;
 
@@ -97,8 +97,8 @@ public class Average {
         for (int i = 0; i < allRowDataObject.size(); i++) {
             Object anAllRowDataObject = allRowDataObject.get(i);
 
-            ArrayList<RowData> firstElement = (ArrayList<RowData>) anAllRowDataObject;
-            for (RowData aFirstElement : firstElement) {
+            ArrayList<RowDataObject> firstElement = (ArrayList<RowDataObject>) anAllRowDataObject;
+            for (RowDataObject aFirstElement : firstElement) {
                 averageComponentCzas = averageComponentCzas + Float.parseFloat(aFirstElement.getCzas());
                 averageComponentUx1 = averageComponentUx1 + Float.parseFloat(aFirstElement.getUx1());
                 averageComponentUx2 = averageComponentUx2 + Float.parseFloat(aFirstElement.getUx2());
@@ -147,5 +147,3 @@ public class Average {
 
 
 }
-
-

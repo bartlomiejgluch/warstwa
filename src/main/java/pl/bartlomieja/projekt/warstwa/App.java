@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -16,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pl.bartlomieja.projekt.warstwa.IO.InputFile;
-import pl.bartlomieja.projekt.warstwa.IO.RowData;
+import pl.bartlomieja.projekt.warstwa.IO.RowDataObject;
 import pl.bartlomieja.projekt.warstwa.methods.Average;
 import pl.bartlomieja.projekt.warstwa.methods.AverageObject;
 
@@ -31,7 +30,6 @@ public class App extends Application {
     private ArrayList<AverageObject> averageObjects = new ArrayList<>();
     private InputFile inputFile = new InputFile();
     private Average average = new Average();
-
 
     Button button;
     private Stage window;
@@ -62,10 +60,8 @@ public class App extends Application {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("series 1 ");
 
-
         window = primaryStage;
         window.setTitle("Program Bartłomieja - Warstwa");
-
 
         //file menu
         Menu fileMenu = new Menu("File");
@@ -77,15 +73,23 @@ public class App extends Application {
             configureFileChooser(fileChooser);
             List<File> list =
                     fileChooser.showOpenMultipleDialog(primaryStage);
+
+
             if (list != null) {
-                for (File file2 : list) {
-                    ArrayList<RowData> rowData = new ArrayList<>();
-                    inputFile.readFile(rowData, file2);
-                    allRowDataObject.add(rowData);
+                for (int i = 0; i < list.size(); i++) {
+                    File file2 = list.get(i);
+                    ArrayList<RowDataObject> rowDatumObjects = new ArrayList<>();
+                    inputFile.readFile(rowDatumObjects, file2);
+                    allRowDataObject.add(rowDatumObjects);
+
+
                 }
+
+
 
             }
 
+            AlertBox.display("Message", new String("Loaded " + list.size() + " files"));
         });
 
         MenuItem exitButton = new MenuItem("Exit");
@@ -187,18 +191,12 @@ public class App extends Application {
                 averageUx4Column, averageUy4Column, averageUz4Column);
 
 
-
-
-
-
         VBox vBox = new VBox();
         vBox.setPrefWidth(800);
         vBox.setPrefHeight(600);
 
-
-
-        vBox.getChildren().addAll( layout, button1, tableAverageObjects, lineChart);
-vBox.setMargin(button1, new Insets(10,10,10,10));
+        vBox.getChildren().addAll(layout, button1, tableAverageObjects, lineChart);
+        vBox.setMargin(button1, new Insets(10, 10, 10, 10));
 
         Scene scene = new Scene(vBox);
         window.setScene(scene);

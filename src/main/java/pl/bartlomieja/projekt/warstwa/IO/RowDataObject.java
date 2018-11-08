@@ -1,6 +1,6 @@
 package pl.bartlomieja.projekt.warstwa.IO;
 
-public class RowData {
+public class RowDataObject {
 
 
     private String czas;
@@ -18,19 +18,19 @@ public class RowData {
     private String Uz4;
 
 
-    RowData(String kczas,
-            String kUx1,
-            String kUy1,
-            String kUz1,
-            String kUx2,
-            String kUy2,
-            String kUz2,
-            String kUx3,
-            String kUy3,
-            String kUz3,
-            String kUx4,
-            String kUy4,
-            String kUz4) {
+    RowDataObject(String kczas,
+                  String kUx1,
+                  String kUy1,
+                  String kUz1,
+                  String kUx2,
+                  String kUy2,
+                  String kUz2,
+                  String kUx3,
+                  String kUy3,
+                  String kUz3,
+                  String kUx4,
+                  String kUy4,
+                  String kUz4) {
 
 
         czas = kczas;
