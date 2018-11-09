@@ -31,6 +31,8 @@ public class App extends Application {
     private InputFile inputFile = new InputFile();
     private Average average = new Average();
 
+    private int xValue = 0;
+
     Button button;
     private Stage window;
     private BorderPane layout;
@@ -55,10 +57,22 @@ public class App extends Application {
         final LineChart<Number, Number> lineChart =
                 new LineChart<Number, Number>(xAxis, yAxis);
 
+
+
         lineChart.setTitle("Average values");
 
+
+
+
+
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("series 1 ");
+        series1.setName("Ux2");
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Uy2");
+
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Uz2");
 
         window = primaryStage;
         window.setTitle("Program Bartłomieja - Warstwa");
@@ -76,6 +90,8 @@ public class App extends Application {
 
 
             if (list != null) {
+
+                xValue=list.size();
                 for (int i = 0; i < list.size(); i++) {
                     File file2 = list.get(i);
                     ArrayList<RowDataObject> rowDatumObjects = new ArrayList<>();
@@ -115,11 +131,24 @@ public class App extends Application {
 
                 tableAverageObjects.getItems().add(averageObject);
 
-                series1.getData().add(new XYChart.Data(averageObject.getOrdinalNumber(), averageObject.getAverageUy1New()));
+
+                xAxis.setAutoRanging(false);
+                xAxis.setLowerBound(0);
+                xAxis.setUpperBound(xValue);
+                xAxis.setTickUnit(1);
+
+                yAxis.setAutoRanging(false);
+                yAxis.setLowerBound(0);
+                yAxis.setUpperBound(4);
+                yAxis.setTickUnit(0.5);
+
+                series1.getData().add(new XYChart.Data(averageObject.getOrdinalNumber(), averageObject.getAverageUx2New()));
+                series2.getData().add(new XYChart.Data(averageObject.getOrdinalNumber(), averageObject.getAverageUy2New()));
+                series3.getData().add(new XYChart.Data(averageObject.getOrdinalNumber(), averageObject.getAverageUz2New()));
 
             }
 
-            lineChart.getData().addAll(series1);
+            lineChart.getData().addAll(series1, series2, series3);
 
         });
 
@@ -189,6 +218,8 @@ public class App extends Application {
         tableAverageObjects.getColumns().addAll(ordinalNumberColumn, amountOfDataColumn, czasColumn, averageUx1Column, averageUy1Column, averageUz1Column,
                 averageUx2Column, averageUy2Column, averageUz2Column, averageUx3Column, averageUy3Column, averageUz3Column,
                 averageUx4Column, averageUy4Column, averageUz4Column);
+
+
 
 
         VBox vBox = new VBox();
