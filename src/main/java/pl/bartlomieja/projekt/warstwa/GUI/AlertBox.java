@@ -1,4 +1,4 @@
-package pl.bartlomieja.projekt.warstwa;
+package pl.bartlomieja.projekt.warstwa.GUI;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,9 +21,6 @@ public class AlertBox {
         window.setMinHeight(150);
         window.setMaxWidth(200);
         window.setMaxHeight(150);
-
-
-
 
         Label label = new Label();
         label.setText(message);
