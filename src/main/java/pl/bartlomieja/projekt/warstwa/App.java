@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.bartlomieja.projekt.warstwa.GUI.*;
 import pl.bartlomieja.projekt.warstwa.IO.InputFile;
+import pl.bartlomieja.projekt.warstwa.IO.ReadFileBits;
 import pl.bartlomieja.projekt.warstwa.IO.RowDataObject;
 import pl.bartlomieja.projekt.warstwa.methods.*;
 
@@ -28,6 +29,10 @@ public class App extends Application {
     ArrayList<StandardDeviationObject> standardDeviationObjects = new ArrayList<>();
     MakeStandardDeviation makeStandardDeviation = new MakeStandardDeviation();
     ArrayList<TurbulenceIntensityObject> turbulenceIntensityObjects = new ArrayList<>();
+
+    private ReadFileBits readFileBits = new ReadFileBits();
+
+    public int chooseFileProperty;
 
 
     private int xValue = 0;
@@ -55,13 +60,16 @@ public class App extends Application {
         //menu items
         MenuItem openFile = new MenuItem("Open file...");
 
+        MenuItem openFileInBits = new MenuItem("Open bits file...");
+
         FileChooserUploadDate fileChooserUploadDate = new FileChooserUploadDate();
 
+        FileChooserUploadDate fileChooserUploadDateInBits = new FileChooserUploadDate();
 
         openFile.setOnAction(event -> {
 
-
-            List<File> list = fileChooserUploadDate.getDataFromFile(primaryStage);
+            chooseFileProperty = 0;
+            List<File> list = fileChooserUploadDate.getDataFromFile(primaryStage, chooseFileProperty);
 
             if (list != null) {
 
@@ -78,13 +86,47 @@ public class App extends Application {
 
             }
 
-            AlertBox.display("Message", new String("Loaded " + list.size() + " files"));
+            try {
+                AlertBox.display("Message", new String("Loaded " + list.size() + " files"));
+            } catch (Exception e) {
+
+            }
+
         });
+
+
+        openFileInBits.setOnAction(event -> {
+
+            chooseFileProperty = 1;
+            List<File> listFileInBits = fileChooserUploadDateInBits.getDataFromFile(primaryStage, chooseFileProperty);
+
+            if (listFileInBits != null) {
+
+
+                for (int i = 0; i < listFileInBits.size(); i++) {
+
+                    File file3 = listFileInBits.get(i);
+                    ArrayList<RowDataObject> rowDataAllObjectsTemporary = new ArrayList<>();
+                    readFileBits.readFileInBits(rowDataAllObjectsTemporary,file3);
+                    allRowDataObject.add(rowDataAllObjectsTemporary);
+
+                }
+
+
+            }
+
+            try {
+                AlertBox.display("Message", new String("Loaded " + listFileInBits.size() + " files"));
+            } catch (Exception e) {
+            }
+        });
+
 
         MenuItem exitButton = new MenuItem("Exit");
         exitButton.setOnAction(event -> System.exit(0));
 
         fileMenu.getItems().add(openFile);
+        fileMenu.getItems().add(openFileInBits);
         fileMenu.getItems().add(new SeparatorMenuItem());
         fileMenu.getItems().add(exitButton);
 
@@ -101,7 +143,6 @@ public class App extends Application {
 
         StandardDeviationTable standardDeviationTable = new StandardDeviationTable();
         TableView<StandardDeviationObject> standardDeviationTableVbox = standardDeviationTable.getStandardDeviationTable();
-
 
 
         AverageChart averageChart = new AverageChart();
@@ -147,8 +188,8 @@ public class App extends Application {
 
 
         Button buttonCalculateTurbulenceInstensity = new Button("Turbulence Intensity");
-        buttonCalculateTurbulenceInstensity.setOnAction(event ->{
-                turbulenceIntensity.calculateTurbulenceIntensity(averageObjects, standardDeviationObjects, turbulenceIntensityObjects);
+        buttonCalculateTurbulenceInstensity.setOnAction(event -> {
+            turbulenceIntensity.calculateTurbulenceIntensity(averageObjects, standardDeviationObjects, turbulenceIntensityObjects);
 
             for (int i = 0; i < turbulenceIntensityObjects.size(); i++) {
 
@@ -179,16 +220,15 @@ public class App extends Application {
         standardDeviationTabVBox.setPrefWidth(1200);
         standardDeviationTabVBox.setPrefHeight(600);
         standardDeviationTabVBox.getChildren().addAll(buttonCalculateStdDev, standardDeviationTableVbox);
-        standardDeviationTabVBox.setMargin(buttonCalculateStdDev, new Insets(10,10,10,10));
+        standardDeviationTabVBox.setMargin(buttonCalculateStdDev, new Insets(10, 10, 10, 10));
         standardDeviationTab.setContent(standardDeviationTabVBox);
 
         VBox turbulenceIntensityTabVBox = new VBox();
         turbulenceIntensityTabVBox.setPrefWidth(1200);
         turbulenceIntensityTabVBox.setPrefHeight(600);
         turbulenceIntensityTabVBox.getChildren().addAll(buttonCalculateTurbulenceInstensity, turbulenceIntensityTableVBox);
-        turbulenceIntensityTabVBox.setMargin(buttonCalculateTurbulenceInstensity, new Insets(10,10,10,10));
+        turbulenceIntensityTabVBox.setMargin(buttonCalculateTurbulenceInstensity, new Insets(10, 10, 10, 10));
         turbulenceIntensityTab.setContent(turbulenceIntensityTabVBox);
-
 
 
         VBox layoutVBox = new VBox();

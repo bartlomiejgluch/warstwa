@@ -37,6 +37,15 @@
         </dependency>
 
 
+        <dependency>
+            <!-- resides in central repo -->
+            <groupId>com.googlecode.jinahya</groupId>
+            <artifactId>bit-io</artifactId>
+            <version>1.0-alpha-13</version>
+        </dependency>
+
+
+
     </dependencies>
 
 
