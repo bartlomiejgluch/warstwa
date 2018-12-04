@@ -70,6 +70,7 @@ public class MakeStandardDeviation {
                     stdDevObjectStatsUy3.getStandardDeviation(),
                     stdDevObjectStatsUz3.getStandardDeviation(),
                     stdDevObjectStatsUx4.getStandardDeviation(),
+
                     stdDevObjectStatsUy4.getStandardDeviation(),
                     stdDevObjectStatsUz4.getStandardDeviation(),
                     dataArrayToAverage.size(), i);
